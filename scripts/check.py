@@ -3,7 +3,7 @@
 
 A local link or image must point to a file in site/, because GitHub Pages serves nothing else.
 A page must load nothing from another host, because the privacy page promises that.
-A text must have no em or en dash, the writing rule of the Moneten project.
+A text, a style sheet, or a script must have no em or en dash, the writing rule of the Moneten project.
 """
 import re
 import sys
@@ -25,7 +25,7 @@ for page in sorted(site.glob("*.html")):
 			if path and path != "./" and ":" not in path and not path.startswith("//") and not (site / path).exists():
 				errors.append(f"{page.name}: {path} does not exist")
 
-for text in [*site.glob("*.html"), *site.glob("*.css"), root / "README.md"]:
+for text in [*site.glob("*.html"), *site.glob("*.css"), *site.glob("*.js"), root / "README.md"]:
 	for number, line in enumerate(text.read_text(encoding="utf-8").splitlines(), 1):
 		if "–" in line or "—" in line:
 			errors.append(f"{text.relative_to(root)}:{number}: em or en dash")

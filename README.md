@@ -1,10 +1,11 @@
 # Website
 
-This repository holds the website of [Moneten](https://github.com/MonetenApp/Moneten), the open-source banking app for the Mac, at [monetenapp.com](https://monetenapp.com). The site is in German. It has no build step, no scripts, and no resources from other hosts, so the privacy page can say that the site sets no cookies and loads nothing from other servers.
+This repository holds the website of [Moneten](https://github.com/MonetenApp/Moneten), the open-source banking app for the Mac, at [monetenapp.com](https://monetenapp.com). The site is in German. It has no build step and no resources from other hosts, so the privacy page can say that the site sets no cookies and loads nothing from other servers. One small script of its own, `site/main.js`, shows the parts of the page as they scroll into view and lets the coins and cards follow the pointer. Without it, the page shows everything at once.
 
 - `site/index.html` presents the app, the extensions, and the state of the project.
 - `site/impressum.html` and `site/datenschutz.html` are the legal pages of Adanos Software GmbH, which runs the site.
-- `site/style.css` takes its colors from the app icon and follows the light or dark appearance of the system.
+- `site/style.css` takes its colors from the app icon and follows the light or dark appearance of the system. It holds the animations. With the system setting to reduce motion, parts only fade in, and nothing moves on its own.
+- The graphics are drawn in SVG in `site/index.html`: the app icon, whose M draws itself, the coins, the chart of expenses, and the flow of the extensions. All amounts in them are made up.
 - `site/img/` holds the app icon, the screenshots as WebP in a light and a dark version, and `og-image.jpg` for link previews.
 
 ## Checks
