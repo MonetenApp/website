@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Moneten: Open-Source-Banking für den Mac</title>
+	<meta name="description" content="Moneten ist eine Open-Source-Banking-App für macOS. Deine Daten bleiben verschlüsselt auf deinem Mac. Ohne Konto und ohne Telemetrie.">
+	<link rel="canonical" href="https://monetenapp.com/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Moneten: Open-Source-Banking für den Mac">
+	<meta property="og:description" content="Umsätze, Kategorien und Diagramme. Lokal, verschlüsselt und quelloffen.">
+	<meta property="og:url" content="https://monetenapp.com/">
+	<meta property="og:image" content="https://monetenapp.com/img/og-image.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:locale" content="de_DE">
+	<meta name="theme-color" content="#0f468c">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+	<link rel="apple-touch-icon" href="img/icon-256.png">
+	<link rel="stylesheet" href="style.css">
+	<!-- Hides the parts that fade in only when the script can show them again. -->
+	<script>document.documentElement.classList.add("js")</script>
+	<script src="main.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<!-- Shapes that several graphics reuse. -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+	<defs>
+		<radialGradient id="coin-face" cx="35%" cy="30%" r="75%">
+			<stop offset="0" stop-color="#ffffff"/>
+			<stop offset=".55" stop-color="#e4f1ff"/>
+			<stop offset="1" stop-color="#8fbff7"/>
+		</radialGradient>
+		<linearGradient id="coin-ring" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#ffffff"/>
+			<stop offset="1" stop-color="#5ca1f3"/>
+		</linearGradient>
+		<linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="0" stop-color="#5ca2f4"/>
+			<stop offset=".47" stop-color="#19509a"/>
+			<stop offset="1" stop-color="#0a285b"/>
+		</linearGradient>
+		<symbol id="coin-m" viewBox="0 0 100 100">
+			<circle cx="50" cy="50" r="48" fill="url(#coin-face)"/>
+			<circle cx="50" cy="50" r="40" fill="none" stroke="url(#coin-ring)" stroke-width="3" opacity=".8"/>
+			<path d="M33 66V40L50 54L67 36V66" fill="none" stroke="#0f468c" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+		</symbol>
+		<symbol id="coin-euro" viewBox="0 0 100 100">
+			<circle cx="50" cy="50" r="48" fill="url(#coin-face)"/>
+			<circle cx="50" cy="50" r="40" fill="none" stroke="url(#coin-ring)" stroke-width="3" opacity=".8"/>
+			<path d="M65 37a19 19 0 1 0 0 26M30 46h25M30 55h22" fill="none" stroke="#0f468c" stroke-width="7" stroke-linecap="round"/>
+		</symbol>
+	</defs>
+</svg>
+
+<header class="hero">
+	<div class="hero-art" aria-hidden="true">
+		<div class="blob blob-a"></div>
+		<div class="blob blob-b"></div>
+		<div class="blob blob-c"></div>
+		<div class="dots"></div>
+		<div class="coin coin-1" style="--depth: 18"><svg><use href="#coin-m"/></svg></div>
+		<div class="coin coin-2" style="--depth: 10"><svg><use href="#coin-euro"/></svg></div>
+		<div class="coin coin-3" style="--depth: 26"><svg><use href="#coin-euro"/></svg></div>
+		<div class="coin coin-4" style="--depth: 8"><svg><use href="#coin-m"/></svg></div>
+		<div class="coin coin-5" style="--depth: 22"><svg><use href="#coin-m"/></svg></div>
+		<div class="coin coin-6" style="--depth: 12"><svg><use href="#coin-euro"/></svg></div>
+		<div class="coin coin-7" style="--depth: 30"><svg><use href="#coin-m"/></svg></div>
+		<div class="coin coin-8" style="--depth: 14"><svg><use href="#coin-euro"/></svg></div>
+		<svg class="wave wave-back" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 70C240 20 480 20 720 60S1200 110 1440 70S1920 20 2160 60S2640 110 2880 70V120H0Z"/></svg>
+		<svg class="wave wave-front" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0 84C320 40 560 118 860 92S1260 40 1440 70V120H0Z"/></svg>
+	</div>
+
+	<div class="wrap">
+		<nav class="nav" aria-label="Hauptnavigation">
+			<a class="brand" href="./"><img src="img/icon-256.png" alt="" width="36" height="36">Moneten</a>
+			<ul>
+				<li><a href="#funktionen">Funktionen</a></li>
+				<li><a href="#extensions">Extensions</a></li>
+				<li><a href="#stand">Stand</a></li>
+				<li><a href="https://github.com/MonetenApp/Moneten">GitHub</a></li>
+			</ul>
+		</nav>
+
+		<div class="hero-body">
+			<svg class="hero-logo" viewBox="60 60 904 904" role="img" aria-label="App-Symbol von Moneten">
+				<defs>
+					<linearGradient id="logo-body" x1="0" y1="102" x2="0" y2="920" gradientUnits="userSpaceOnUse">
+						<stop offset="0" stop-color="#5ca2f4"/>
+						<stop offset=".235" stop-color="#3e7dcc"/>
+						<stop offset=".47" stop-color="#19509a"/>
+						<stop offset=".7" stop-color="#0e3d7b"/>
+						<stop offset="1" stop-color="#0a285b"/>
+					</linearGradient>
+					<linearGradient id="logo-m" x1="0" y1="335" x2="0" y2="732" gradientUnits="userSpaceOnUse">
+						<stop offset="0" stop-color="#eff7ff"/>
+						<stop offset="1" stop-color="#bcddff"/>
+					</linearGradient>
+					<linearGradient id="logo-sheen" x1="0" y1="0" x2="1" y2="0">
+						<stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+						<stop offset=".5" stop-color="#ffffff" stop-opacity=".28"/>
+						<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+					</linearGradient>
+					<clipPath id="logo-clip"><rect x="102" y="102" width="818" height="818" rx="184"/></clipPath>
+				</defs>
+				<rect class="logo-body" x="102" y="102" width="818" height="818" rx="184" fill="url(#logo-body)"/>
+				<g clip-path="url(#logo-clip)"><rect class="logo-sheen" x="-200" y="-100" width="260" height="1224" fill="url(#logo-sheen)" transform="rotate(20 512 512)"/></g>
+				<path class="logo-m" d="M306.5 690V414.5L511 588L716.5 377V690" pathLength="1" fill="none" stroke="url(#logo-m)" stroke-width="85" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+			<p class="badge reveal" style="--i: 1"><span class="pulse" aria-hidden="true"></span>Frühe Entwicklungsphase · noch kein Release</p>
+			<h1 class="reveal" style="--i: 2">Deine Finanzen.<br><span class="shine">Auf deinem Mac.</span></h1>
+			<p class="lead reveal" style="--i: 3">Moneten ist eine Open-Source-Banking-App für macOS. Sie holt deine Umsätze, ordnet sie in Kategorien und zeigt, wohin dein Geld geht. Ohne Konto und ohne Telemetrie. Deine Daten bleiben auf deinem Mac.</p>
+			<div class="actions reveal" style="--i: 4">
+				<a class="button primary" href="https://github.com/MonetenApp/Moneten">
+					<svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+					Quellcode auf GitHub
+				</a>
+				<a class="button secondary" href="#extensions">Extensions entdecken</a>
+			</div>
+		</div>
+	</div>
+</header>
+
+<main id="inhalt">
+	<div class="wrap stage reveal">
+		<figure class="shot">
+			<div class="shot-frame">
+				<div class="stage-glow" aria-hidden="true"></div>
+				<picture class="tilt">
+					<source srcset="img/transactions-dark.webp" media="(prefers-color-scheme: dark)">
+					<img src="img/transactions-light.webp" alt="Das Hauptfenster von Moneten mit Konten in der Seitenleiste und einer Liste von Umsätzen mit Kategorien" width="1040" height="650">
+				</picture>
+				<div class="chip chip-a" aria-hidden="true">
+					<span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span>
+					<span><strong>Verschlüsselt</strong><small>SQLCipher auf deinem Mac</small></span>
+				</div>
+				<div class="chip chip-b" aria-hidden="true">
+					<span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 21h4"/></svg></span>
+					<span><strong>3 neue Umsätze</strong><small>Girokonto, gerade eben</small></span>
+				</div>
+				<div class="chip chip-c" aria-hidden="true">
+					<span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span>
+					<span><strong>Regel angewendet</strong><small>REWE Markt → Groceries</small></span>
+				</div>
+			</div>
+			<figcaption>Konten, Umsätze und Kategorien in einem Fenster. Alle Namen und Beträge sind erfunden.</figcaption>
+		</figure>
+	</div>
+
+	<div class="marquee">
+		<div class="marquee-track">
+			<ul>
+				<li>FinTS</li><li>pushTAN</li><li>photoTAN</li><li>chipTAN</li><li>CSV</li><li>CAMT</li><li>MT940</li><li>Umzug aus MoneyMoney</li><li>Extensions in Lua</li><li>SQLCipher</li><li>Touch ID</li><li>macOS 15 und neuer</li>
+			</ul>
+			<ul aria-hidden="true">
+				<li>FinTS</li><li>pushTAN</li><li>photoTAN</li><li>chipTAN</li><li>CSV</li><li>CAMT</li><li>MT940</li><li>Umzug aus MoneyMoney</li><li>Extensions in Lua</li><li>SQLCipher</li><li>Touch ID</li><li>macOS 15 und neuer</li>
+			</ul>
+		</div>
+	</div>
+
+	<section id="funktionen">
+		<div class="wrap">
+			<p class="eyebrow reveal">Funktionen</p>
+			<h2 class="reveal" style="--i: 1">Was Moneten ausmacht</h2>
+			<p class="section-intro reveal" style="--i: 2">Moneten ist eine native Mac-App in Swift und SwiftUI. Sie ist für Menschen gebaut, die Konten bei mehreren deutschen Banken und Brokern haben und ihre Finanzdaten nicht auf fremden Servern sehen wollen.</p>
+
+			<div class="grid">
+				<div class="reveal" style="--i: 0"><article class="card">
+					<div class="icon icon-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path class="shackle" d="M8 11V7a4 4 0 018 0v4"/><path class="keyhole" d="M12 15v2"/></svg></div>
+					<h3>Lokal und verschlüsselt</h3>
+					<p>Alle Daten liegen in einer mit SQLCipher verschlüsselten Datenbank auf deinem Mac. Es gibt kein Benutzerkonto, keine Telemetrie und keinen Server, der deine Finanzdaten speichert.</p>
+				</article></div>
+				<div class="reveal" style="--i: 1"><article class="card">
+					<div class="icon icon-bank" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path class="roof" d="M3 10l9-6 9 6"/><path class="col" style="--n: 0" d="M5 10v8"/><path class="col" style="--n: 1" d="M9.5 10v8"/><path class="col" style="--n: 2" d="M14.5 10v8"/><path class="col" style="--n: 3" d="M19 10v8"/><path d="M3 21h18"/></svg></div>
+					<h3>Banking mit FinTS <span class="tag">in Arbeit</span></h3>
+					<p>Moneten spricht FinTS, die Standardschnittstelle deutscher Banken, mit pushTAN, photoTAN und chipTAN. Kostenlos und direkt eingebaut, ohne Umweg über einen Dienstleister. Die ersten Tests mit echten Banken laufen.</p>
+				</article></div>
+				<div class="reveal" style="--i: 2"><article class="card">
+					<div class="icon icon-puzzle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path class="piece" d="M10 3h4v3a2 2 0 104 0V5h1a2 2 0 012 2v3h-1a2 2 0 100 4h1v3a2 2 0 01-2 2h-3v-1a2 2 0 10-4 0v1H7a2 2 0 01-2-2v-3h1a2 2 0 100-4H5V7a2 2 0 012-2h3z"/></svg></div>
+					<h3>Extensions in Lua</h3>
+					<p>Kreditkarten, PayPal, Broker oder Krypto-Börsen kommen über Extensions dazu. Moneten soll die meisten Extensions für MoneyMoney ohne Änderungen ausführen. Drei veröffentlichte laufen in den Tests schon unverändert.</p>
+				</article></div>
+				<div class="reveal" style="--i: 3"><article class="card">
+					<div class="icon icon-folder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h6l2 2h10v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path class="rule" d="M8 15h8"/></svg></div>
+					<h3>Kategorien und Regeln</h3>
+					<p>Sortiere Umsätze in einen Baum aus Kategorien und Gruppen. Jede Kategorie kann eine Regel haben, einen Suchausdruck, der neue Umsätze automatisch einordnet.</p>
+				</article></div>
+				<div class="reveal" style="--i: 4"><article class="card">
+					<div class="icon icon-bars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path class="bar" style="--n: 0" d="M4 20V10"/><path class="bar" style="--n: 1" d="M10 20V4"/><path class="bar" style="--n: 2" d="M16 20v-7"/><path d="M22 20H2"/></svg></div>
+					<h3>Diagramme und Suche</h3>
+					<p>Sieh den Verlauf deiner Salden und deine Ausgaben nach Kategorie. Suche und Filter grenzen die Umsätze eines Kontos, einer Gruppe oder einer Kategorie ein, etwa nach Zeitraum oder Betrag.</p>
+				</article></div>
+				<div class="reveal" style="--i: 5"><article class="card">
+					<div class="icon icon-import" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path class="arrow" d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg></div>
+					<h3>Umzug und Import</h3>
+					<p>Übernimm Konten, Kategorien und Umsätze aus MoneyMoney. Kontoauszüge im Format CSV, CAMT oder MT940 importierst du ohne doppelte Buchungen.</p>
+				</article></div>
+			</div>
+		</div>
+	</section>
+
+	<section id="diagramme">
+		<div class="wrap">
+			<div class="pair">
+				<div>
+					<p class="eyebrow reveal">Diagramme</p>
+					<h2 class="reveal" style="--i: 1">Wohin geht dein Geld?</h2>
+					<p class="section-intro reveal" style="--i: 2">Moneten rechnet direkt auf deinem Mac. Beträge werden auf den Cent genau als ganze Zahlen gespeichert, und Summen über verschiedene Währungen werden nie heimlich umgerechnet.</p>
+					<ul class="checklist reveal" style="--i: 3">
+						<li>Ausgaben und Einnahmen nach Kategorie</li>
+						<li>Saldoverlauf für ein Konto oder eine Gruppe</li>
+						<li>Zeiträume wie ein Monat, ein Jahr oder die letzten zwölf Monate</li>
+					</ul>
+				</div>
+				<div class="viz reveal" style="--i: 1">
+					<picture class="viz-shot">
+						<source srcset="img/charts-dark.webp" media="(prefers-color-scheme: dark)">
+						<img src="img/charts-light.webp" alt="Der Saldoverlauf eines Girokontos über zwölf Monate als Balkendiagramm" width="1040" height="650" loading="lazy">
+					</picture>
+					<div class="viz-card donut-card" role="img" aria-label="Beispiel mit erfundenen Zahlen: Ausgaben im Oktober nach Kategorie. Wohnen 950 Euro, Lebensmittel 412 Euro, Mobilität 236 Euro, Freizeit 198 Euro, Versicherungen 164 Euro, zusammen 1.960 Euro.">
+						<div class="donut">
+							<svg viewBox="0 0 120 120" aria-hidden="true">
+								<circle class="donut-track" cx="60" cy="60" r="46"/>
+								<g transform="rotate(-90 60 60)">
+									<circle class="seg" cx="60" cy="60" r="46" pathLength="100" style="--len: 47.7; --off: 0; --c: #5ca1f3; --n: 0"/>
+									<circle class="seg" cx="60" cy="60" r="46" pathLength="100" style="--len: 20.2; --off: 48.5; --c: #f5a524; --n: 1"/>
+									<circle class="seg" cx="60" cy="60" r="46" pathLength="100" style="--len: 11.2; --off: 69.5; --c: #30c26b; --n: 2"/>
+									<circle class="seg" cx="60" cy="60" r="46" pathLength="100" style="--len: 9.3; --off: 81.5; --c: #ff5c7a; --n: 3"/>
+									<circle class="seg" cx="60" cy="60" r="46" pathLength="100" style="--len: 7.6; --off: 91.6; --c: #a970ff; --n: 4"/>
+								</g>
+							</svg>
+							<div class="donut-center" aria-hidden="true"><strong>1.960 €</strong><small>Oktober</small></div>
+						</div>
+						<ul class="legend" aria-hidden="true">
+							<li style="--c: #5ca1f3"><span>Wohnen</span><b>950 €</b></li>
+							<li style="--c: #f5a524"><span>Lebensmittel</span><b>412 €</b></li>
+							<li style="--c: #30c26b"><span>Mobilität</span><b>236 €</b></li>
+							<li style="--c: #ff5c7a"><span>Freizeit</span><b>198 €</b></li>
+							<li style="--c: #a970ff"><span>Versicherungen</span><b>164 €</b></li>
+						</ul>
+					</div>
+					<div class="viz-card spark-card" aria-hidden="true">
+						<small>Saldo, zwölf Monate</small>
+						<strong>16.940,83 €</strong>
+						<svg viewBox="0 0 200 60" preserveAspectRatio="none">
+							<defs>
+								<linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">
+									<stop offset="0" stop-color="#5ca1f3" stop-opacity=".45"/>
+									<stop offset="1" stop-color="#5ca1f3" stop-opacity="0"/>
+								</linearGradient>
+							</defs>
+							<path class="spark-area" d="M0 46C20 44 30 39 45 41S70 30 85 33S110 28 125 22S160 21 175 14S195 10 200 9V60H0Z" fill="url(#spark-fill)"/>
+							<path class="spark-line" d="M0 46C20 44 30 39 45 41S70 30 85 33S110 28 125 22S160 21 175 14S195 10 200 9" pathLength="1"/>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="extensions">
+		<div class="wrap">
+			<p class="eyebrow reveal">Extensions</p>
+			<h2 class="reveal" style="--i: 1">Extensions für alles ohne FinTS</h2>
+			<p class="section-intro reveal" style="--i: 2">Eine Extension ist ein kleines Lua-Skript, das Konten, Salden und Umsätze von einem Dienst abruft: einer Kreditkarte, PayPal, einem Broker oder einer Bank im Ausland. Die Schnittstelle ist mit der Web-Banking-API von MoneyMoney kompatibel. Der Katalog steht noch am Anfang und füllt sich mit jeder geprüften Extension.</p>
+
+			<div class="pair ext">
+				<div class="flow reveal" style="--i: 1">
+					<svg class="smil" viewBox="0 0 520 380" role="img" aria-label="Extensions holen Daten von Kreditkarten, PayPal, Depots, Krypto-Börsen und Banken im Ausland. Die Daten fließen nur in Richtung Moneten.">
+						<defs>
+							<path id="flow-1" d="M120 74C190 90 214 140 236 170"/>
+							<path id="flow-2" d="M400 74C330 90 306 140 284 170"/>
+							<path id="flow-3" d="M100 230C160 222 200 210 226 200"/>
+							<path id="flow-4" d="M420 230C360 222 320 210 294 200"/>
+							<path id="flow-5" d="M260 318C260 290 260 260 260 232"/>
+						</defs>
+						<circle class="orbit" cx="260" cy="190" r="150"/>
+						<circle class="orbit orbit-inner" cx="260" cy="190" r="96"/>
+						<use class="flow-line" href="#flow-1"/>
+						<use class="flow-line" href="#flow-2"/>
+						<use class="flow-line" href="#flow-3"/>
+						<use class="flow-line" href="#flow-4"/>
+						<use class="flow-line" href="#flow-5"/>
+						<g class="packets">
+							<circle r="4.5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#flow-1"/></animateMotion></circle>
+							<circle r="4.5"><animateMotion dur="2.4s" repeatCount="indefinite" begin=".5s"><mpath href="#flow-2"/></animateMotion></circle>
+							<circle r="4.5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1s"><mpath href="#flow-3"/></animateMotion></circle>
+							<circle r="4.5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.5s"><mpath href="#flow-4"/></animateMotion></circle>
+							<circle r="4.5"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2s"><mpath href="#flow-5"/></animateMotion></circle>
+						</g>
+
+						<g class="node" transform="translate(60 56)">
+							<rect width="128" height="36" rx="18"/>
+							<g class="node-icon" transform="translate(12 8)"><rect x="1" y="4" width="18" height="12" rx="2"/><path d="M1 8h18"/></g>
+							<text x="38" y="23">Kreditkarte</text>
+						</g>
+						<g class="node" transform="translate(340 56)">
+							<rect width="112" height="36" rx="18"/>
+							<g class="node-icon" transform="translate(12 8)"><path d="M3 6h12a2 2 0 012 2v8a2 2 0 01-2 2H3z"/><path d="M3 6l9-4 2 4"/><circle cx="13" cy="12" r="1"/></g>
+							<text x="38" y="23">PayPal</text>
+						</g>
+						<g class="node" transform="translate(30 212)">
+							<rect width="100" height="36" rx="18"/>
+							<g class="node-icon" transform="translate(12 8)"><path d="M2 16l5-6 4 3 7-9"/><path d="M14 4h4v4"/></g>
+							<text x="38" y="23">Depot</text>
+						</g>
+						<g class="node" transform="translate(390 212)">
+							<rect width="100" height="36" rx="18"/>
+							<g class="node-icon" transform="translate(12 8)"><path d="M10 1l8 4.5v9L10 19l-8-4.5v-9z"/><path d="M10 6v8"/></g>
+							<text x="38" y="23">Krypto</text>
+						</g>
+						<g class="node" transform="translate(190 316)">
+							<rect width="140" height="36" rx="18"/>
+							<g class="node-icon" transform="translate(12 8)"><circle cx="10" cy="10" r="8.5"/><path d="M1.5 10h17M10 1.5c3 3 3 14 0 17M10 1.5c-3 3-3 14 0 17"/></g>
+							<text x="38" y="23">Bank im Ausland</text>
+						</g>
+
+						<g class="hub">
+							<circle class="hub-ping" cx="260" cy="190" r="44"/>
+							<rect x="222" y="152" width="76" height="76" rx="18" fill="url(#tile)"/>
+							<path d="M245 208V178L260 192L275 174V208" fill="none" stroke="#eff7ff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+							<g class="seal" transform="translate(284 140)">
+								<circle cx="14" cy="14" r="14"/>
+								<path d="M8 14l4 4 8-8"/>
+							</g>
+						</g>
+						<text class="flow-note" x="260" y="30">nur lesen, nie bezahlen</text>
+					</svg>
+				</div>
+
+				<ul class="points">
+					<li class="reveal" style="--i: 2">
+						<span class="point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+						<div><h3>Nur lesen, nie bezahlen</h3><p>Extensions rufen Daten ab. Die Schnittstelle hat keine Funktionen für Zahlungen. Überweisungen wird Moneten nur über FinTS oder das optionale Abo mit finAPI senden.</p></div>
+					</li>
+					<li class="reveal" style="--i: 3">
+						<span class="point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/><path d="M8 11l2 2 4-4"/></svg></span>
+						<div><h3>Jede Extension wird geprüft</h3><p>Automatische Prüfungen und ein Maintainer sehen sich jede neue Extension und jedes Update an. Eine Extension spricht nur mit den Servern aus ihrem Manifest, immer über HTTPS.</p></div>
+					</li>
+					<li class="reveal" style="--i: 4">
+						<span class="point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-4.5"/></svg></span>
+						<div><h3>Signierter Katalog</h3><p>Moneten prüft die Signatur des Katalogs und die Prüfsumme jeder Datei, bevor es eine Extension installiert oder ausführt. Jede Extension läuft in einem eigenen, abgeschotteten Prozess.</p></div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="actions start reveal">
+				<a class="button solid" href="https://github.com/MonetenApp/moneten-extensions">Zum Extension-Katalog</a>
+				<a class="button outline" href="https://github.com/MonetenApp/moneten-extensions/tree/main/docs/guide">Eine Extension schreiben</a>
+			</div>
+		</div>
+	</section>
+
+	<section id="stand">
+		<div class="wrap">
+			<p class="eyebrow reveal">Stand</p>
+			<h2 class="reveal" style="--i: 1">Stand der Entwicklung</h2>
+			<p class="section-intro reveal" style="--i: 2">Moneten ist noch nicht fertig, und es gibt noch kein Release. Jedes Verhalten der App ist vorab als Anforderung mit prüfbaren Szenarien beschrieben. Der Code folgt Schritt für Schritt.</p>
+
+			<ol class="timeline reveal">
+				<li class="now">
+					<span class="node" aria-hidden="true"></span>
+					<p class="when">Jetzt in Arbeit</p>
+					<h3><span>v0.1</span> Lesen</h3>
+					<p>Eine Bank über FinTS mit pushTAN anbinden, Umsätze abrufen, mit Regeln kategorisieren, Diagramme sehen, aus MoneyMoney umziehen und Extensions aus dem Katalog nutzen.</p>
+				</li>
+				<li>
+					<span class="node" aria-hidden="true"></span>
+					<p class="when">Danach</p>
+					<h3><span>v0.2</span> Bezahlen</h3>
+					<p>SEPA-Überweisungen über FinTS mit Empfängerüberprüfung und TAN, dazu die Bestände von Depots.</p>
+				</li>
+				<li>
+					<span class="node" aria-hidden="true"></span>
+					<p class="when">Später</p>
+					<h3><span>v0.3</span> Verbinden</h3>
+					<p>Ein optionales Abo bindet Banken ohne FinTS über finAPI an. Alle Funktionen von v0.1 und v0.2 bleiben ohne Abo kostenlos.</p>
+				</li>
+			</ol>
+
+			<div class="pair lists">
+				<div class="reveal">
+					<h3>Das funktioniert schon</h3>
+					<ul class="checklist">
+						<li>Verschlüsselte Datenbank mit optionalem Passwort</li>
+						<li>Umzug von Konten, Kategorien und Umsätzen aus MoneyMoney</li>
+						<li>Import von CSV, CAMT und MT940 ohne doppelte Buchungen</li>
+						<li>Umsatzliste mit Suche, Kategorien, Regeln und Diagrammen</li>
+						<li>Extensions aus dem signierten Katalog installieren und aktualisieren</li>
+						<li>Automatische Aktualisierung mit Mitteilung bei neuen Umsätzen</li>
+					</ul>
+				</div>
+				<div class="reveal" style="--i: 1">
+					<h3>Daran wird gearbeitet</h3>
+					<ul class="checklist open">
+						<li>FinTS mit vielen echten Banken testen und fertigstellen</li>
+						<li>Ein signiertes und notarisiertes Release mit Updates</li>
+						<li>Eine Sicherheitsprüfung vor dem ersten öffentlichen Release</li>
+						<li>Export aller Daten in offenen Formaten</li>
+					</ul>
+				</div>
+			</div>
+			<p class="more"><a href="https://github.com/MonetenApp/Moneten/blob/main/docs/roadmap.md">Die vollständige Roadmap auf GitHub</a></p>
+		</div>
+	</section>
+
+	<section id="mitmachen">
+		<div class="wrap">
+			<div class="cta reveal">
+				<div class="cta-art" aria-hidden="true">
+					<div class="coin coin-a"><svg><use href="#coin-m"/></svg></div>
+					<div class="coin coin-b"><svg><use href="#coin-euro"/></svg></div>
+					<div class="coin coin-c"><svg><use href="#coin-m"/></svg></div>
+				</div>
+				<h2>Mach mit</h2>
+				<p>Moneten ist freie Software unter der GNU General Public License. Jede und jeder kann den Code lesen, bauen, prüfen und verändern. Das Projekt sucht Swift-Entwicklerinnen und -Entwickler, Leute mit Erfahrung in FinTS und Autorinnen und Autoren von Extensions.</p>
+				<div class="actions">
+					<a class="button primary" href="https://github.com/MonetenApp/Moneten">Moneten auf GitHub</a>
+					<a class="button secondary" href="https://github.com/MonetenApp/Moneten/blob/main/CONTRIBUTING.md">So kannst du beitragen</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<footer>
+	<div class="wrap">
+		<div class="row">
+			<p>© 2026 Adanos Software GmbH · Moneten steht unter GPL-3.0-or-later.</p>
+			<ul>
+				<li><a href="impressum.html">Impressum</a></li>
+				<li><a href="datenschutz.html">Datenschutz</a></li>
+				<li><a href="https://github.com/MonetenApp/Moneten">GitHub</a></li>
+			</ul>
+		</div>
+		<p class="note">Moneten steht in keiner Verbindung zu MoneyMoney oder der MRH applications GmbH. MoneyMoney ist eine Marke ihres Inhabers.</p>
+	</div>
+</footer>
+</body>
+</html>
